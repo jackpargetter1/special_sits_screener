@@ -213,13 +213,3 @@ service account).
 `claude.ai/code/artifact/...` URL) is different from the above — that's a manual
 snapshot, republished only when asked in a Claude Code session, not on its own
 schedule. For a link that updates unattended, use the hosted GCS URL above instead.
-
-## Next steps (roughly in order)
-
-1. Run it daily for a couple of weeks and watch for false positives/negatives —
-   tune `screener/config.py`'s form and item mappings.
-2. Add cross-run dedup (track sent accession numbers) so re-runs or scheduler
-   retries don't double-send.
-3. Expand/prune `screener/tracked_funds.py` as you find gaps (see its docstring).
-4. Persist situations to a database (BigQuery/Postgres) instead of only emailing,
-   so there's a browsable history to eventually train a classifier/pricing model on.
