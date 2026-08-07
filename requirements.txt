@@ -1,0 +1,4 @@
+requests==2.32.3
+python-dotenv==1.0.1
+yfinance==1.5.2
+google-cloud-storage==3.13.1
