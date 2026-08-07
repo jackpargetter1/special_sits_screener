@@ -158,16 +158,26 @@ RUN_DATE=2026-07-31 python main.py
 
 A separate, interactive counterpart to the email digest: same situations, same
 taxonomy, but rendered as a filterable HTML table with an expandable per-company
-financial detail panel (`screener/financials.py` — latest SEC 10-K, `yfinance`
-fallback; see that module's docstring for sourcing/limitations).
+financial detail panel (`screener/financials.py`; see that module's docstring for
+the full sourcing/reconciliation rationale).
+
+Fundamentals are a **per-field waterfall**, not a per-company fallback: SEC's latest
+10-K first (authoritative), then `yfinance` for whatever the filer didn't tag (SG&A
+and change-in-NWC are commonly missing), then `openbb` for whatever's still gapped
+after both -- optional, `pip install -r requirements-optional.txt` to enable it, see
+that file for why it's not a hard dependency. Every non-primary source is checked for
+a systematic unit-scale mismatch against the primary source's revenue (the
+`_reconcile_scale` function) before its figures are used, so a derived metric like
+FCF = CFO − CapEx can't silently combine two same-named fields reported at different
+scales.
 
 ```bash
 RUN_DATE=2026-08-06 python build_dashboard.py dashboard.html
 ```
 
-Takes ~1-2 minutes (one SEC + one yfinance call per public company, sequential).
-Open the file directly, or see "Hosting the dashboard" below to publish it somewhere
-that refreshes on its own.
+Takes ~1-2 minutes (SEC + yfinance calls per public company, sequential). Open the
+file directly, or see "Hosting the dashboard" below to publish it somewhere that
+refreshes on its own.
 
 ## Deploying to Cloud Run Jobs
 

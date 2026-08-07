@@ -1,0 +1,15 @@
+# Optional third-tier fundamentals fallback (screener/financials.py). Not required --
+# fetch_fundamentals() lazily imports this and silently skips the tier if it's absent.
+#
+# Heads up: tested live against its free "yfinance" provider (no API key needed) and
+# it turns out to be the *same underlying Yahoo data* our yfinance tier already uses,
+# just with a far more reliable normalized column schema -- genuinely useful for
+# filling gaps yfinance's raw DataFrame row-name matching misses, but it is not an
+# independent data source unless you configure a paid provider (FMP, Intrinio,
+# Tiingo, etc. -- see OpenBB's docs). It's also a heavy install (~30 provider
+# extensions get built even for the free tier), which is why it's not in the main
+# requirements.txt.
+#
+#   pip install -r requirements-optional.txt
+
+openbb==4.7.2
