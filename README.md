@@ -218,8 +218,3 @@ open reloads on the same 15-minute cadence and picks up each republish automatic
 — no manual refresh needed. Run the one-time setup + build/push sections in
 `deploy.sh` first if you haven't already (the dashboard job reuses that image and
 service account).
-
-**Updating the *Artifact preview link* from this conversation** (the private
-`claude.ai/code/artifact/...` URL) is different from the above — that's a manual
-snapshot, republished only when asked in a Claude Code session, not on its own
-schedule. For a link that updates unattended, use the hosted GCS URL above instead.
